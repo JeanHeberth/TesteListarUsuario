@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/templates/modeloSistema.xhtml">
+
+	<ui:define name="topo">
+		<ui:include src="/includes/topoPrincipal.html" />
+	</ui:define>
+
+	<ui:define name="menu">
+		<ui:include src="../includes/menuPrincipal.xhtml" />
+	</ui:define>
+
+
+	<ui:define name="conteudo">
+
+		<h:form id="frmCuiListagem">
+			<p:dataTable id="tblCuidadores" var="usuario"
+				value="#{MBCuidador.cuidadores}" rows="10" paginator="true"
+				emptyMessage="Nenhum Registro Encontrado" style="text-align: center">
+
+				<f:facet name="header">
+					<div style="text-align: center">Cuidador - Listagem</div>
+				</f:facet>
+
+				<p:column headerText="Código" sortBy="#{usuario.codigo}"
+					filterBy="#{usuario.codigo}">
+					<h:outputText value="#{usuario.codigo}" />
+				</p:column>
+
+				<p:column headerText="Nome" filterBy="#{usuario.nome}">
+					<h:outputText value="#{usuario.nome}" />
+				</p:column>
+
+				<p:column headerText="Telefone" filterBy="#{usuario.telefone}">
+					<h:outputText value="#{usuario.telefone}" />
+				</p:column>
+
+				<p:column headerText="Endereço" filterBy="#{usuario.endereco}">
+					<h:outputText value="#{usuario.endereco}" />
+				</p:column>
+
+
+				<!-- Opções dos botões excluir/editar cuidador-->
+				<p:column headerText="Opções">
+
+					<!--Botão para excluir cuidador-->
+					<p:commandButton actionListener="#{MBCuidador.prepararExcluir}"
+						icon="ui-icon-trash" oncomplete="PF('dlgCuiExcluir').show();"
+						update=":frmCuiExcluir:pnlCuiExcluir" />
+
+					<!--Botão para editar cuidador-->
+					<p:commandButton icon="ui-icon-pencil"
+						action="#{MBCuidador.prepararEditar}"
+						oncomplete="PF('dlgCuiEditar').show();"
+						update=":frmCuiEditar:pnlCuiEditar" />
+
+
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+
+
+		<!-- Formulário para Editar usuário -->
+		<p:dialog widgetVar="dlgCuiEditar" closable="false" draggable="false"
+			resizable="false" modal="true" appendTo="@(body)"
+			header="Cuidador - Editar">
+
+			<h:form id="frmCuiEditar">
+				<h:panelGrid id="pnlCuiEditar" columns="2">
+					<p:outputLabel value="Código:" />
+					<h:outputText value="#{MBCuidador.cuidador.codigo}" />
+
+					<p:outputLabel value="Nome" />
+					<h:inputText value="#{MBCuidador.cuidador.nome}" />
+
+					<p:outputLabel value="Telefone" />
+					<h:inputText value="#{MBCuidador.cuidador.telefone}" />
+
+					<p:outputLabel value="Endereço" />
+					<h:inputText value="#{MBCuidador.cuidador.endereco}" />
+
+
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" style="text-alig: center">
+					<p:commandButton value="Salvar"
+						actionListener="#{MBCuidador.editar}"
+						oncomplete="PF('dlgCuiEditar').hide();"
+						update=":frmCuiListagem:tblCuidadores :msgGlobal"
+						icon="ui-icon-trash" />
+
+
+					<p:commandButton value="Cancelar"
+						onclick="PF('dlgCuiEditar').hide();"
+						icon="ui-icon-squaresmall-close" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+
+
+
+
+		<!-- Formulário para excluir usuário -->
+		<p:dialog widgetVar="dlgCuiExcluir" closable="false" draggable="false"
+			resizable="false" modal="true" appendTo="@(body)"
+			header="Cuidador - Excluir">
+
+			<h:form id="frmCuiExcluir">
+				<h:panelGrid id="pnlCuiExcluir" columns="2">
+					<h:outputText value="Código:" />
+					<h:outputText value="#{MBCuidador.cuidador.codigo}" />
+
+					<h:outputLabel value="Nome" />
+					<h:outputText value="#{MBCuidador.cuidador.nome}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Excluir"
+						actionListener="#{MBCuidador.excluir}"
+						oncomplete="PF('dlgCuiExcluir').hide();"
+						update=":frmCuiListagem:tblCuidadores :msgGlobal"
+						icon="ui-icon-trash" />
+					<p:commandButton value="Cancelar"
+						onclick="PF('dlgCuiExcluir').hide();"
+						icon="ui-icon-squaresmall-close" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+
+
+
+
+
+
+
+
+	</ui:define>
+</ui:composition>

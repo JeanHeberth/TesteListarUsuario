@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/templates/modeloSistema.xhtml">
+
+
+
+	<ui:define name="topo">
+		<ui:include src="/includes/topoPrincipal.html" />
+	</ui:define>
+
+	<ui:define name="menu">
+		<ui:include src="../includes/menuPrincipal.xhtml" />
+	</ui:define>
+
+
+	<ui:define name="conteudo">
+
+
+		<f:event listener="#{MBCuidador.preparaNovoCadastro()}"
+			type="preRenderView" />
+
+		<p:messages id="messages" />
+
+		<h:form id="frmCuiSalvar">
+
+			<h3 style="text-align: center; font-size: 20px">Preencha os seus
+				dados</h3>
+
+			<div class="card">
+
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					style="border:2px none; background-color:transparent; text-align: center; ">
+
+
+					<p:outputLabel for="nome" value="Nome Completo" />
+					<p:inputText id="nome" value="#{MBCuidador.cuidador.nome}" />
+
+					<p:outputLabel for="cpf" value="CPF" />
+					<p:inputText id="cpf" />
+
+					<p:outputLabel for="cep" value="CEP" />
+					<p:inputText id="cep" />
+
+					<p:outputLabel for="endereco" value="Endereco" />
+					<p:inputText id="endereco" value="#{MBCuidador.cuidador.endereco}" />
+
+					<p:outputLabel for="telefone" value="Telefone" />
+					<p:inputText id="telefone" value="#{MBCuidador.cuidador.telefone}" />
+
+
+
+					<p:outputLabel for="especializacao" value="Especialização" />
+					<p:inputTextarea id="especializacao" rows="3" />
+
+					
+
+					
+
+					<p:column>
+						<p:commandButton value="Cadastrar" icon="ui-icon-star"
+							action="#{MBCuidador.salvar()}" update="messages">
+						</p:commandButton>
+
+						<p:commandButton value="Listar" action="listar.xhtml"
+							oncomplete="PF('frmCuiSalvar').clearFilters();" update="messages">
+						</p:commandButton>
+					</p:column>
+
+
+
+				</p:panelGrid>
+			</div>
+		</h:form>
+
+
+
+	</ui:define>
+</ui:composition>
