@@ -25,3 +25,7 @@ body .ui-panelgrid .ui-panelgrid-cell {
 	background-color: var(- -surface-c);
 	font-weight: bold;
 }
+
+#j_idt13:sexo {
+	margin-left: 10px;
+}

@@ -13,6 +13,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.ListDataModel;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+import org.primefaces.component.radiobutton.RadioButton;
+
 import com.jeanheberth.testelistar.dao.CuidadorDao;
 import com.jeanheberth.testelistar.domain.Cuidador;
 import com.jeanheberth.testelistar.util.JSFUtil;
@@ -25,109 +28,123 @@ import com.jeanheberth.testelistar.util.JSFUtil;
 @ViewScoped
 public class CuidadorBean implements Serializable {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+	/**
+	 *
+	 */
+	
 
-    private Cuidador cuidador = new Cuidador();
-    private ListDataModel<Cuidador> cuidadores;
-    private ListDataModel<Cuidador> itensCuidadores;
+	private Cuidador cuidador = new Cuidador();
+	private ListDataModel<Cuidador> cuidadores;
+	private ListDataModel<Cuidador> itensCuidadores;
 
-    public Cuidador getCuidador() {
-        return cuidador;
-    }
+	public Cuidador getCuidador() {
+		return cuidador;
+	}
 
-    public void setCuidador(Cuidador cuidador) {
-        this.cuidador = cuidador;
-    }
+	public void setCuidador(Cuidador cuidador) {
+		this.cuidador = cuidador;
+	}
 
-    public ListDataModel<Cuidador> getCuidadores() {
-        return cuidadores;
-    }
+	public ListDataModel<Cuidador> getCuidadores() {
+		return cuidadores;
+	}
 
-    public void setCuidadores(ListDataModel<Cuidador> cuidadores) {
-        this.cuidadores = cuidadores;
-    }
+	public void setCuidadores(ListDataModel<Cuidador> cuidadores) {
+		this.cuidadores = cuidadores;
+	}
 
-    public ListDataModel<Cuidador> getItensCuidadores() {
-        return itensCuidadores;
-    }
+	public ListDataModel<Cuidador> getItensCuidadores() {
+		return itensCuidadores;
+	}
 
-    public void setItensCuidadores(ListDataModel<Cuidador> itensCuidadores) {
-        this.itensCuidadores = itensCuidadores;
-    }
+	public void setItensCuidadores(ListDataModel<Cuidador> itensCuidadores) {
+		this.itensCuidadores = itensCuidadores;
+	}
 
-    public void salvar() {
+	public void salvar() {
 
-        try {
-            if (!cuidador.getNome().equals("")) {
-                CuidadorDao cuidaDao = new CuidadorDao();
-                cuidaDao.salvar(cuidador);
+		try {
+			if (!cuidador.getNome().equals("")) {
 
-                ArrayList<Cuidador> lista = (ArrayList<Cuidador>) cuidaDao.listar();
-                cuidadores = new ListDataModel<Cuidador>(lista);
-                JSFUtil.adicionarMessagemDeSucesso("Cuidador salvo com sucesso!");
-            } else {
-                JSFUtil.adicionarMensagemDeErro("Nome não pode ser vazio!");
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JSFUtil.adicionarMensagemDeErro(ex.getMessage());
-        }
+				CuidadorDao cuidaDao = new CuidadorDao();
+				cuidaDao.salvar(cuidador);
 
-    }
+				ArrayList<Cuidador> lista = (ArrayList<Cuidador>) cuidaDao.listar();
+				cuidadores = new ListDataModel<Cuidador>(lista);
+				JSFUtil.adicionarMessagemDeSucesso("Cuidador salvo com sucesso!");
 
-    @PostConstruct
-    public void preparPesquisa() {
-        try {
-            CuidadorDao cuidaDao = new CuidadorDao();
-            ArrayList<Cuidador> listaCuidadores = (ArrayList<Cuidador>) cuidaDao.listar();
-            cuidadores = new ListDataModel<Cuidador>(listaCuidadores);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JSFUtil.adicionarMensagemDeErro(ex.getMessage());
-        }
-    }
+			} else {
+				JSFUtil.adicionarMensagemDeErro("Nome não pode ser vazio!");
+			}
 
-    public void preparaNovoCadastro() {
-        cuidador = new Cuidador();
-    }
+		} catch (
 
-    public void prepararExcluir() {
+		Exception ex) {
+			ex.printStackTrace();
+			JSFUtil.adicionarMensagemDeErro(ex.getMessage());
+		}
 
-        cuidador = cuidadores.getRowData();
+	}
 
-    }
+	@PostConstruct
+	public void preparPesquisa() {
+		try {
+			CuidadorDao cuidaDao = new CuidadorDao();
+			ArrayList<Cuidador> listaCuidadores = (ArrayList<Cuidador>) cuidaDao.listar();
+			cuidadores = new ListDataModel<Cuidador>(listaCuidadores);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			JSFUtil.adicionarMensagemDeErro(ex.getMessage());
+		}
+	}
 
-    public void excluir() {
+	public void preparaNovoCadastro() {
+		cuidador = new Cuidador();
+	}
 
-        CuidadorDao cuidaDao = new CuidadorDao();
-        cuidaDao.excluir(cuidador);
+	public void prepararExcluir() {
 
-        ArrayList<Cuidador> listaCuidadores = (ArrayList<Cuidador>) cuidaDao.listar();
-        cuidadores = new ListDataModel<>(listaCuidadores);
-        JSFUtil.adicionarMessagemDeSucesso("Cuidador excluído com sucesso!");
-    }		
+		cuidador = cuidadores.getRowData();
 
-    public void prepararEditar() {
-        cuidador = cuidadores.getRowData();
-    }
+	}
 
-    public void editar() {
+	public void excluir() {
 
-        try {
-            CuidadorDao cuidaDao = new CuidadorDao();
-            cuidaDao.editar(cuidador);
+		CuidadorDao cuidaDao = new CuidadorDao();
+		cuidaDao.excluir(cuidador);
 
-            ArrayList<Cuidador> listaCuidadores = (ArrayList<Cuidador>) cuidaDao.listar();
-            cuidadores = new ListDataModel<Cuidador>(listaCuidadores);
-             JSFUtil.adicionarMessagemDeSucesso("Cuidador alterado com sucesso!");
+		ArrayList<Cuidador> listaCuidadores = (ArrayList<Cuidador>) cuidaDao.listar();
+		cuidadores = new ListDataModel<>(listaCuidadores);
+		JSFUtil.adicionarMessagemDeSucesso("Cuidador excluído com sucesso!");
+	}
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+	public void prepararEditar() {
+		cuidador = cuidadores.getRowData();
+	}
 
-    }
+	public void editar() {
 
+		try {
+			CuidadorDao cuidaDao = new CuidadorDao();
+			cuidaDao.editar(cuidador);
+
+			ArrayList<Cuidador> listaCuidadores = (ArrayList<Cuidador>) cuidaDao.listar();
+			cuidadores = new ListDataModel<Cuidador>(listaCuidadores);
+			JSFUtil.adicionarMessagemDeSucesso("Cuidador alterado com sucesso!");
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+	
+			
+	}
+
+		 
+}
+	public void selecionaSexo() {
+		
+		if (cuidador.getSexo().toString().equals("Masculino")) {
+			
+			
+		}
+	}
 }

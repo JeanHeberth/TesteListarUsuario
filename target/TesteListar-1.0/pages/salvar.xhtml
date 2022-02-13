@@ -1,68 +1,167 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	template="/templates/modeloSistema.xhtml">
 
-
 	<ui:define name="topo">
-		<ui:include src="/includes/topoPrincipal.html" />
+		<ui:include src="/includes/topoPrincipal.xhtml" />
 	</ui:define>
 
-
 	<ui:define name="menu">
-		<ui:include src="/includes/menuPrincipal.xhtml" />
+		<ui:include src="../includes/menuPrincipal.xhtml" />
 	</ui:define>
 
 	<ui:define name="conteudo">
 
 		<f:event listener="#{MBCuidador.preparaNovoCadastro()}"
 			type="preRenderView" />
+		<h:form>
 
-		<p:messages id="messages" />
+			<fieldset class="form-group">
+				<legend style="margin-left: 30px">Dados Pessoais</legend>
+				<div class="container">
 
-		<h:form id="frmCuiSalvar">
+					<!-- Inicio da  div -->
+					<div style="margin-top: 20px"
+						class="row  d-flex justify-content-center">
+						<div class="col-md-4">
+							<p:outputLabel class="form-label" for="nome"
+								value="Nome Completo" />
+							<p:inputText id="nome" class="form-control"
+								placeholder="Nome Completo" value="#{MBCuidador.cuidador.nome}" />
+						</div>
 
-			<h3 style="text-align: center; font-size: 20px">Preencha os seus
-				dados</h3>
 
-			<div class="ui-fluid">
+						<div class="col-md-4 ">
+							<p:outputLabel class="form-label" for="telefone" value="Telefone" />
+							<p:inputMask id="telefone" class="form-control"
+								mask="(99)99999-9999" placeholder="(61)99999-9999"
+								value="#{MBCuidador.cuidador.telefone}" />
+						</div>
+					</div>
+
+					<div style="margin-top: 20px"
+						class="row  d-flex justify-content-center">
+						<div class="col-md-3 col-sm-6">
+							<p:outputLabel class="form-label" for="cpf" value="CPF" />
+							<p:inputMask id="cpf" class="form-control"
+								placeholder="999.999.999-99" value="#{MBCuidador.cuidador.cpf}"
+								mask="999.999.999-99" validateMask="true" />
+
+						</div>
+
+						<div class="col-md-2 col-sm-6">
+							<p:outputLabel class="form-label" for="dataNascimento"
+								value="Data de Nascimento" />
+							<p:calendar id="dataNascimento"
+								value="#{MBCuidador.cuidador.dataNascimento}"
+								pattern="dd/MM/yyyy" locale="pt_BR" />
+						</div>
 
 
-				<p:outputLabel for="nome" value="Nome:" />
-				<p:inputText id="nome" value="#{MBCuidador.cuidador.nome}" />
+						<div class="form-check col-md-3">
 
-
-				<p:outputLabel for="cpf" value="Cpf:" />
-				<p:inputText id="cpf" value="" />
-
-				<p:outputLabel for="telefone" value="Telefone:" />
-				<p:inputText id="telefone" value="#{MBCuidador.cuidador.telefone}" />
-
-				<p:outputLabel for="cep" value="Cep:" />
-				<p:inputText id="cep" value="" />
-
-				<p:outputLabel for="endereco" value="Endereço:" />
-				<p:inputText id="endereco" value="#{MBCuidador.cuidador.endereco}" />
-
-				<p:outputLabel for="mei" value="MEI" />
-				<p:inputText id="mei" value="" />
-
-				<div style="float: right;">
-					<h5 class="">Tem cadastro no MEI</h5>
-					<p:selectOneRadio id="MEI" value="#" unselectable="true">
-						<f:selectItem itemLabel="Sim" itemValue="Sim" />
-						<f:selectItem itemLabel="Não" itemValue="Não" />
-					</p:selectOneRadio>
+							<div class="form-check form-check-inline">
+								<p:outputLabel value="Sexo" for="sexo" />
+								<p:selectOneRadio id="sexo" value="#{MBCuidador.cuidador.sexo}">
+									<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+									<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+								</p:selectOneRadio>
+							</div>
+						</div>
+					</div>
 				</div>
+			</fieldset>
 
 
-				<p:outputLabel />
+
+			<!-- Endereço -->
+
+
+
+			<fieldset class="form-group">
+				<legend style="margin-left: 30px">Endereço</legend>
+
+
+				<div class="container">
+
+
+					<div style="margin-top: 20px"
+						class="row  d-flex justify-content-center">
+						<div class="col-md-2 col-sm-6">
+							<p:outputLabel class="form-label" for="cep" value="CEP" />
+							<p:inputText id="cep" class="form-control" placeholder="Quadra"
+								value="#{MBCuidador.cuidador.cep}" />
+						</div>
+
+						<div class="col-md-2 col-sm-6">
+							<p:outputLabel class="form-label" for="cpf" value="Logradouro" />
+							<p:inputText id="logradouro" class="form-control"
+								placeholder="Quadra" value="#{MBCuidador.cuidador.logradouro}" />
+						</div>
+
+						<div class="col-md-2 col-sm-6">
+							<p:outputLabel class="form-label" for="numero" value="Número" />
+							<p:inputText id="numero" class="form-control" placeholder="455"
+								value="#{MBCuidador.cuidador.numero}" />
+						</div>
+
+						<div class="col-md-2 col-sm-6">
+							<p:outputLabel class="form-label" for="complemento"
+								value="Complemento" />
+							<p:inputText id="complemento" class="form-control"
+								placeholder="casa 01" value="#{MBCuidador.cuidador.complemento}" />
+						</div>
+
+						<div style="margin-top: 20px"
+							class="row  d-flex justify-content-center">
+							<div class="col-md-4">
+								<p:outputLabel class="form-label" value="Estado" />
+								<select class="form-select">
+									<option>São Paulo</option>
+									<option>Rio de Janeiro</option>
+									<option>Belo Horizonte</option>
+									<option>Salvador</option>
+								</select>
+							</div>
+
+							<div class="col-md-4" style="margin-left: 20px">
+								<p:outputLabel class="form-label" value="Cidade" />
+								<select class="form-select">
+									<option>São Paulo</option>
+									<option>Rio de Janeiro</option>
+									<option>Belo Horizonte</option>
+									<option>Salvador</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+
+
+
+			<div style="text-align: center;">
+
+
+				<h:commandButton style="margin-top: 20px; margin-right: 10px;"
+					type="submit" class="btn btn-success" value="Cadastrar"
+					actionListener="#{MBCuidador.salvar()}">
+				</h:commandButton>
+
+				<h:commandButton style="margin-top: 20px" type="submit"
+					class="btn btn-danger" value="Limpar">
+
+				</h:commandButton>
 			</div>
-
 		</h:form>
+
+
 	</ui:define>
 </ui:composition>

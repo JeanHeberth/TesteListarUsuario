@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
-    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -10,7 +10,7 @@
 	template="/templates/modeloSistema.xhtml">
 
 	<ui:define name="topo">
-		<ui:include src="/includes/topoPrincipal.html" />
+		<ui:include src="/includes/topoPrincipal.xhtml" />
 	</ui:define>
 
 	<ui:define name="menu">
@@ -25,12 +25,14 @@
 				value="#{MBCuidador.cuidadores}" rows="10" paginator="true"
 				emptyMessage="Nenhum Registro Encontrado" style="text-align: center">
 
+
 				<f:facet name="header">
-					<div style="text-align: center">Cuidador - Listagem</div>
+					<div>Cuidador - Listagem</div>
 				</f:facet>
 
-				<p:column headerText="Código" sortBy="#{usuario.codigo}"
-					filterBy="#{usuario.codigo}">
+
+				<p:column headerText="Código" filterBy="#{usuario.codigo}"
+					sortBy="#{usuario.codigo}">
 					<h:outputText value="#{usuario.codigo}" />
 				</p:column>
 
@@ -42,8 +44,28 @@
 					<h:outputText value="#{usuario.telefone}" />
 				</p:column>
 
-				<p:column headerText="Endereço" filterBy="#{usuario.endereco}">
-					<h:outputText value="#{usuario.endereco}" />
+				<p:column headerText="CPF" filterBy="#{usuario.cpf}">
+					<h:outputText value="#{usuario.cpf}" />
+				</p:column>
+
+
+
+
+				<p:column headerText="Sexo" filterBy="#{usuario.sexo}">
+					<h:outputText value="#{usuario.sexo}" />
+				</p:column>
+
+
+				<p:column headerText="Logradouro" filterBy="#{usuario.logradouro}">
+					<h:outputText value="#{usuario.logradouro}" />
+				</p:column>
+
+				<p:column headerText="Número" filterBy="#{usuario.numero}">
+					<h:outputText value="#{usuario.numero}" />
+				</p:column>
+
+				<p:column headerText="Complemento" filterBy="#{usuario.complemento}">
+					<h:outputText value="#{usuario.complemento}" />
 				</p:column>
 
 
@@ -67,7 +89,6 @@
 		</h:form>
 
 
-
 		<!-- Formulário para Editar usuário -->
 		<p:dialog widgetVar="dlgCuiEditar" closable="false" draggable="false"
 			resizable="false" modal="true" appendTo="@(body)"
@@ -84,8 +105,6 @@
 					<p:outputLabel value="Telefone" />
 					<h:inputText value="#{MBCuidador.cuidador.telefone}" />
 
-					<p:outputLabel value="Endereço" />
-					<h:inputText value="#{MBCuidador.cuidador.endereco}" />
 
 
 
@@ -105,9 +124,6 @@
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
-
-
-
 
 
 		<!-- Formulário para excluir usuário -->
@@ -136,13 +152,6 @@
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
-
-
-
-
-
-
-
 
 
 	</ui:define>

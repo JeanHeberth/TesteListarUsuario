@@ -1,51 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	template="/templates/modeloSistema.xhtml">
-  
-  <ui:define name="conteudo">
-		<ui:include src="/includes/menuPrincipal.xhtml" />
+
+	<ui:define name="topo">
+		<ui:include src="/includes/topoPrincipal.xhtml" />
 	</ui:define>
-  
 
-        <h:form>
-            <p:dataTable emptyMessage="Nenhum registro encontrado."
-                         value="#{MBCuidador.itensCuidadores}"
-                         var="itemCuidador"
-                         paginator="true" rows="10">
+	<ui:define name="menu">
+		<ui:include src="../includes/menuPrincipal.xhtml" />
 
-                <p:column headerText="Cpf" sortBy="#{itemCuidador.cpf}">
-                    <h:outputText value="#{itemCuidador.cpf}"/>
-                </p:column>
+	</ui:define>
 
-                <p:column headerText="Nome" sortBy="#{itemCuidador.nome}">
-                    <h:outputText value="#{itemCuidador.nome}" />
-                </p:column>
+	<ui:define name="conteudo">
 
-                <p:column headerText="Telefone" sortBy="#{itemCuidador.telefone}">
-                    <h:outputText value="#{itemCuidador.telefone}"/>
-                </p:column>
 
-                <p:column headerText="E-mail" sortBy="#{itemCuidador.email}">
-                    <h:outputText value="#{itemCuidador.email}"/>
-                </p:column>
+		<f:event listener="#{MBCuidador.preparaNovoCadastro()}"
+			type="preRenderView" />
 
-                <p:column headerText="Cursos" sortBy="#{itemCuidador.cursos}">
-                    <h:outputText value="#{itemCuidador.cursos}"/>
-                </p:column>
+		<h:form id="frm">
 
-            </p:dataTable>
-        </h:form>
+			<p:panelGrid columns="2">
 
-	</ui:composition>
-    
+				<p:outputLabel value="Nome" for="nome" />
+				<p:inputText id="nome" value="#{MBCuidador.cuidador.nome}"
+					required="true" />
 
+				<p:outputLabel value="Sexo" for="sexo" />
+				<p:selectOneRadio id="sexo" value="#{MBCuidador.cuidador.sexo}">
+					<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+					<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+
+				</p:selectOneRadio>
+
+
+
+			</p:panelGrid>
+
+			<div style="text-align: center;">
+
+
+				<h:commandButton style="margin-top: 20px; margin-right: 10px;"
+					type="submit" class="btn btn-success" value="Cadastrar"
+					actionListener="#{MBCuidador.salvar}">
+				</h:commandButton>
+
+				<p:commandButton style="margin-top: 20px" type="submit"
+					class="btn btn-danger" value="Limpar" update="@form">
+
+				</p:commandButton>
+			</div>
+
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

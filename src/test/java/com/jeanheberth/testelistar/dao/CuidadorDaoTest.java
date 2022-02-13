@@ -24,7 +24,8 @@ public class CuidadorDaoTest {
 		Cuidador cuidador = new Cuidador();
 
 		cuidador.setNome("Teste nome cuidador");
-		cuidador.setEndereco("Márcia ");
+		cuidador.setCidade("Márcia ");
+		cuidador.setCep("72017359");
 
 		CuidadorDao cuidadorDao = new CuidadorDao();
 		cuidadorDao.salvar(cuidador);
@@ -32,7 +33,7 @@ public class CuidadorDaoTest {
 	}
 
 	@Test
-	@Ignore
+	//@Ignore
 	public void listar() {
 		CuidadorDao cuidadorDao = new CuidadorDao();
 		List<Cuidador> resultadoCuidador = cuidadorDao.listar();
@@ -55,7 +56,7 @@ public class CuidadorDaoTest {
 	@Test
 	@Ignore
 	public void buscar() {
-		Long codigo = 3L;
+		Long codigo = 34L;
 		CuidadorDao cuidadorDao = new CuidadorDao();
 		Cuidador cuidador = cuidadorDao.buscar(codigo);
 
@@ -82,8 +83,8 @@ public class CuidadorDaoTest {
 		}
 	}
 
-
 	@Test
+	@Ignore
 	public void editar() {
 		Long codigo = 17L;
 		CuidadorDao cuidadorDao = new CuidadorDao();
